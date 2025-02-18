@@ -1,1 +1,72 @@
 
+#include <iostream>
+using namespace std;
+class FitnessTracker{
+    string ownerName;
+    int dailyGoal;
+    int stepsTaken;
+public:
+    void setDailyGoal(int goal) {
+        dailyGoal=goal;
+    }
+    void setOwnerName(string name) {
+        ownerName=name;
+    }
+    bool checkGoal() {
+        return stepsTaken>=dailyGoal;
+    }
+    int caloriesBurned() {
+        return 0.5*stepsTaken;
+    }
+    void addSteps(int steps){
+        if(steps>0) {
+            stepsTaken+=steps;
+            cout<<"Added steps:"<<steps<<"\n";
+        } else{
+            cout<<"Enter a valid number of steps.\n";
+        }
+    }
+    void displayProgress(){
+        cout<<"Total steps taken:"<<stepsTaken<<endl;
+        cout<<"Daily goal steps:"<<dailyGoal<<"\n";
+    }
+};
+int main(){
+    FitnessTracker t1;
+    t1.setOwnerName("Shorouq Iqbal");
+    int choice, input;
+    while (choice<6){
+        cout<<"1. Add Steps";
+		cout<<"2. Calories Burned";
+		cout<<"3.Check Goal";
+		cout<<"4. Set Goal";
+		cout<<"5.Display Progress";
+		cout<<"6. Exit";
+		cout<<"Enter choice:";
+        cin>>choice;
+        switch (choice){
+            case 1:
+                cout<<"Enter steps:";
+                cin>>input;
+                t1.addSteps(input);
+                break;
+            case 2:
+                cout<<"Calories burned:"<<t1.caloriesBurned()<<" Kcal\n";
+                break;
+            case 3:
+                cout<<(t1.checkGoal()?"Yayy! You have reached your daily goal!\n" :"Keep going! You can do this\n");
+                break;
+            case 4:
+                cout<<"Enter new daily goal: ";
+                cin>>input;
+                t1.setDailyGoal(input);
+                break;
+            case 5:
+                t1.displayProgress();
+                break;
+            default:
+                cout<<"Invalid choice! Try again.\n";
+        }
+    }
+    return 0;
+}
