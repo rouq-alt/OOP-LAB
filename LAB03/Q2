@@ -6,16 +6,16 @@ class FitnessTracker{
     int dailyGoal;
     int stepsTaken;
 public:
-    void setDailyGoal(int goal) {
+    void setDailyGoal(int goal){
         dailyGoal=goal;
     }
-    void setOwnerName(string name) {
+    void setOwnerName(string name){
         ownerName=name;
     }
-    bool checkGoal() {
+    bool checkGoal(){
         return stepsTaken>=dailyGoal;
     }
-    int caloriesBurned() {
+    int caloriesBurned(){
         return 0.5*stepsTaken;
     }
     void addSteps(int steps){
