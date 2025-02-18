@@ -1,1 +1,80 @@
+#include <iostream>
+using namespace std;
+class Library {
+    string bookList[10]; 
+    int bookCount=0;
+public:
+    void addBook(string name){
+        if (bookCount<10) {
+            bookList[bookCount]=name;
+            bookCount++;
+            cout<<"Book added:" << name<<endl;
+        } else {
+            cout<<"Library is full!\n";
+        }
+    }
+    void borrowBook(string name){
+        for (int i=0;i<bookCount;i++) {
+            if (bookList[i]==name) {
+                cout<<"You borrowed: "<<name<<endl;
+                bookList[i]="";
+                return;
+            }
+        }
+        cout<<"Book not available!\n";
+    }
+    void returnBook(string name){
+        for (int i=0;i<bookCount;i++) {
+            if (bookList[i]==""){
+                bookList[i]=name;
+                cout<<"Book returned: "<<name<<endl;
+                return;
+            }
+        }
+        cout << "Cannot return, no borrowed books found!\n";
+    }
+    void displayBooks() {
+        bool found = false;
+        cout << "\nAvailable Books:\n";
+        for (int i=0;i<bookCount;i++) {
+            if (bookList[i]!="") {
+                cout <<"- "<<bookList[i]<<endl;
+                found=true;
+            }
+        }
+        if (!found)
+		cout<<"No books available.\n";
+    }
+};
+int main() {
+    Library lib;
+    int choice;
+    string bookName;
+    while (1){
+        cout <<"\n-------------------Library Management System\n--------------------";
+        cout<<"1. Add Book\n2. Borrow Book\n3. Return Book\n4. Display Books\n5. Exit\nEnter choice: ";
+        cin>>choice;
+        if (choice==5) break;
+        cout<<"Enter book name: ";
+        cin>>ws;
+        getline(cin, bookName);
+         switch (choice){
+            case 1:
+                lib.addBook(bookName);
+                break;
+            case 2:
+                lib.borrowBook(bookName);
+                break;
+            case 3:
+                lib.returnBook(bookName);
+                break;
+            case 4:
+                lib.displayBooks();
+                break;
+            default:
+                cout<<"Invalid choice!Try again.\n";
+        }
+    }
+    return 0;
+}
 
