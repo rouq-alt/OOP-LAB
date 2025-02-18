@@ -1,1 +1,83 @@
+#include <iostream>
+using namespace std;
+class Playlist{
+    string songList[100];
+    int totalSongs=0;
+    string currentSong;
+public:
+    void addSong(string name){
+        songList[totalSongs++]=name;
+        cout<<"Song added:"<<name<<endl;
+    }
+    void playSong(string name) {
+        for (int i=0;i<totalSongs;i++) {
+            if (songList[i]==name){
+                currentSong=name;
+                cout<<"Now playing:" <<currentSong<<endl;
+                return;
+            }
+        }
+        cout<<"Song not found! Please add it first.\n";
+    }
+    void displayPlaylist(){
+        if (totalSongs==0){
+            cout<<"Playlist is empty!\n";
+            return;
+        }
+        cout<<"\n--- Song List ---\n";
+        for (int i=0;i<totalSongs; i++) {
+            cout<<i+1<< ": "<<songList[i]<<endl;
+        }
+    }
+    void removeSongByShift(string name) {
+        int foundIndex=-1;
+        for (int i=0;i<totalSongs;i++) {
+            if (songList[i]==name) {
+                foundIndex=i;
+                break;
+            }
+        }
+        if (foundIndex==-1) {
+            cout << "Song not found!\n";
+            return;
+        }
+        for (int i=foundIndex;i<totalSongs-1;i++) {
+            songList[i]=songList[i+1];
+        }
+        totalSongs--;
+        cout<<"Song removed: "<<name<<endl;
+    }
+};
+int main() {
+    Playlist p1;
+    int choice;
+    string song;
+    while (true){
+        cout<<"\n--- Music Player ---\n";
+        cout<<"1. Add Song\n2. Remove Song\n3. Play Song\n4. Display Playlist\n5. Exit\n";
+        cout<<"Enter your choice: ";
+        cin>>choice;
+        cin>>ws;
+        getline(cin, song);
 
+        switch (choice) {
+            case 1:
+                p1.addSong(song);
+                break;
+            case 2:
+                p1.removeSongByShift(song);
+                break;
+            case 3:
+                p1.playSong(song);
+                break;
+            case 4:
+                p1.displayPlaylist();
+                break;
+            case 5:
+                cout << "Exiting Music Player...\n";
+                return 0;
+            default:
+                cout << "Invalid choice! Try again.\n";
+        }
+    }
+}
