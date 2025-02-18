@@ -1,1 +1,95 @@
+#include <iostream>
+using namespace std;
+class Wallet{
+    string ownerName;
+    int accountBalance;
+    string transactionHistory;
+public: 
+    Wallet(){  
+        accountBalance=0;
+        transactionHistory="  ";  
+    }
+    void setOwnerName(string name){
+        ownerName=name;
+    }
+    string getOwnerName() {
+        return ownerName;
+    }
+    void addMoney(int num){
+        if(num>0) {
+            accountBalance+=num;
+            transactionHistory+="Added $" + to_string(num) + ".\n";
+            cout<<"Successfully added $ "<<num<<" to your wallet.\n";
+        } else{
+            cout<<"Invalid amount! Please enter a positive value.\n";
+        }
+    } 
+    void spendMoney(int num){
+        if(num>accountBalance){
+            cout<<"Insufficient balance.Failed Transaction\n";
+        } else if(num>0){
+            accountBalance-=num;
+            transactionHistory+="Spent $: "+to_string(num)+".\n";
+            cout<<"Successfully spent $ "<<num <<".\n";
+        } else{
+            cout<<"Invalid amount.Please enter a positive value.\n";
+        }
+    }
+    void displayHistory(){
+        if(transactionHistory.empty()){
+            cout<<"No transactions made yet.\n";
+        } else {
+            cout<<"Transaction History for "<<ownerName<<":\n"<<transactionHistory;
+        }
+    }
 
+    void checkBalance(){
+        cout<<"Current Balance: $"<<accountBalance<<endl;
+    }
+};
+int main() {
+    Wallet w1;
+    w1.setOwnerName("Shorouq Iqbal");
+    int choice;
+    bool start=true;
+  while(start){
+        cout<<"\n-------------Wallet Management System -------------------\n";
+        cout<<"Choose an option:\n";
+        cout<<"1.Add Money\n";
+        cout<<"2.Spend Money\n";
+        cout<<"3.Display Transaction History\n";
+        cout<<"4.Check Balance\n";
+        cout<<"5.Exit\n";
+        cout<<"Enter your choice: ";
+        cin>>choice;
+        int amount;
+        switch(choice){
+            case 1:
+                cout<<"Enter money to be added: ";
+                cin>>amount;
+                w1.addMoney(amount);
+                break;
+            case 2:
+                cout<<"Enter money to spend: ";
+                cin>>amount;
+                w1.spendMoney(amount);
+                break;
+            case 3:
+                w1.displayHistory();
+                cout<<endl;
+                break;
+            case 4:
+                w1.checkBalance();
+                break;
+            case 5:
+                cout<<"Exiting the Wallet Management System. Goodbye!\n";
+                start=false;
+                break;
+            default:
+                cout<<"Invalid choice! Try again.\n";
+                break;
+        }
+    }
+    return 0;
+}
+     
