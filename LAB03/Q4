@@ -1,1 +1,63 @@
+#include <iostream>
+using namespace std;
+class Car {
+    string brand,model;
+    int fuelCapacity,currentFuelLevel;
+public:
+    Car(string b, string m, int cap){
+        brand=b;
+        model=m;
+        fuelCapacity=cap;
+        currentFuelLevel=cap/2;
+    }
+
+    void driveCar(int fuelSpent){
+        if (fuelSpent>currentFuelLevel) {
+            cout<<"Not enough fuel to drive!\n";
+        } else{
+            currentFuelLevel-=fuelSpent;
+            cout<<"Fuel left after driving:"<<currentFuelLevel<<"L\n";
+        }
+    }
+    void refuelCar(int fuelInput){
+        if(currentFuelLevel+fuelInput>fuelCapacity) {
+            cout<<"Tank is full.Max capacity: "<<fuelCapacity<<"L\n";
+            currentFuelLevel=fuelCapacity;
+        } else{
+            currentFuelLevel+=fuelInput;
+            cout<<"Tank Refueled! Current fuel level:" <<currentFuelLevel<<"L\n";
+        }
+    }
+    void checkFuel(){
+        cout <<"Fuel remaining:" <<currentFuelLevel<<"L / "<<fuelCapacity<<"L\n";
+    }
+};
+int main(){
+    Car c1("GLI","Toyota",70);
+    int choice, amount;
+    while (true) {
+        cout<<"\n--------------Fuel Management System -------------------\n";
+        cout<<"1. Drive Car\n2. Refuel Car\n3. Check Fuel\n4. Exit\nEnter choice: ";
+        cin>>choice;
+        if (choice==4) break;
+        switch (choice){
+            case 1:
+                cout<<"Enter fuel consumed: ";
+                cin>>amount;
+                c1.driveCar(amount);
+                break;
+            case 2:
+                cout<<"Enter fuel to refill: ";
+                cin>>amount;
+                c1.refuelCar(amount);
+                break;
+            case 3:
+                c1.checkFuel();
+                break;
+            default:
+                cout<<"Invalid choice! Try again.\n";
+        }
+    }
+    return 0;
+}
 
