@@ -27,6 +27,14 @@ public:
         price=p;
         availability=s;
     }
+      void display() {
+            cout<<"...................................."<<endl;
+            cout<<"brand: "<<brand<<endl;
+            cout<<"model: "<<model<<endl;
+            cout<<"price: "<<price<<endl;
+            cout<<"status: "<<availability<<endl;
+            cout<<"...................................."<<endl;
+        }
     void RentalRequest() {
         if (availability==true)
             cout<<"Car can be rented."<<endl;
@@ -54,11 +62,14 @@ public:
 int main() {
     Car c1("Toyota","GLI",50000,true);
     Car c2;
+    c1.display();
     c1.RentalRequest();
     c1.applyDiscount(6);
     c2.carDetails("Honda","Civic",40000,false);
+    c2.display();
     c2.RentalRequest();
     c2.applyDiscount(5);
 
     return 0;
 }
+
