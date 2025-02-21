@@ -1,0 +1,86 @@
+#include <iostream>
+using namespace std;
+
+class Car{
+    string brand;
+    string Model;
+    double rentalPrice;
+    bool availability;
+    
+    public:
+        Car() {
+            brand="unknown";
+            Model="generic";
+            rentalPrice=0.0;
+            availability=true;
+        }
+        void setBrand(string name) {
+            brand=name;
+        }
+        void setModel(string model) {
+            Model=model;
+        }
+        void setPrice(double price) {
+            if(price>0.0) {
+                rentalPrice=price;
+            }
+        }
+        void setStatus(bool s){
+            availability=s;
+        }
+        void RentalRequest() {
+        if (availability==true)
+            cout<<"Car can be rented."<<endl;
+        else
+            cout<<"Car not available for renting."<<endl;
+    }
+        Car(string b,string m,double price,bool s) {
+            brand=b;
+            Model=m;
+            rentalPrice=price;
+            availability=s;
+        }
+        Car(const Car &c) {
+            brand=c.brand;
+            Model=c.Model;
+            rentalPrice=c.rentalPrice;
+            availability=true;
+        }
+        void display() {
+            cout<<"brand: "<<brand<<endl;
+            cout<<"model: "<<Model<<endl;
+            cout<<"price: "<<rentalPrice<<endl;
+            cout<<"status: "<<availability<<endl;
+        }
+        double applyDiscount(int days) {
+    	if(availability==true)
+    	{
+        double discountedPrice;
+        if(days>=10) {
+            discountedPrice=rentalPrice*0.9;
+        } 
+        else if(days>=5) {
+            discountedPrice=rentalPrice*0.95;
+        }
+        cout<<"Final price after discount for "<<days<<" days: PKR"<<discountedPrice<<endl;
+        return discountedPrice;
+    }
+    else
+    cout<<"Car not available so not discount";
+}
+        ~Car() {
+            cout<<"Destructor called. Object was deleted!!";
+        }
+};
+
+int main() {
+    Car car1;
+    Car car2=car1;
+    car1.setBrand("toyota");
+    car1.setModel("GLI");
+    car1.setPrice(100);
+    cout<<"Displaying Car no.1: "<<endl;
+    car1.display();
+    cout<<"Displaying Car no.2: "<<endl;
+    car2.display();
+}
