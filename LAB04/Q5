@@ -1,0 +1,78 @@
+#include <iostream>
+using namespace std;
+class Car
+{
+private:
+    string brand;
+    string model;
+    double price;
+    bool availability;
+    double totalrevenue;
+
+public:
+    Car: carID("UNKNOWN") {
+        brand="Unknown";
+        model="Generic";
+        price=0.0;
+        availability=true;
+        totalrevenue=0.0;
+    }
+      Car(string b, string m, double p, bool st, string id) 
+        : brand(b), model(m), pricerice(p), availability(st), totalrevenue(0.0), carID(id) {}
+
+    Car(const Car &c) 
+        : brand(c.brand), model(c.model), rentalPrice(c.rentalPrice), status(true), totalRevenue(0.0), carID(c.carID + "COPY") {}
+    ~Car()
+    {
+        cout <<"Destructor called. Object was deleted";
+    }
+
+   double applyDiscount(int days) {
+    	if(availability==true)
+    	{
+        double discountedPrice;
+        if(days>=10) {
+            discountedPrice=price*0.9;
+        } 
+        else if(days>=5) {
+            discountedPrice=price*0.95;
+        }
+        cout<<"Final price after discount for "<<days<<" days: PKR"<<discountedPrice<<endl;
+        return discountedPrice;
+    }
+    else
+    cout<<"Car not available so not discount";
+}
+    void RentalRequest() {
+        if (availability==true)
+            cout<<"Car can be rented."<<endl;
+        else
+            cout<<"Car not available for renting."<<endl;
+    }
+    void Revenue(int days) {
+            if(availability==false) {
+                cout<<"car is not avaliable for renting!";
+            }
+            else {
+                double revenue=days*price;
+                this->totalrevenue+=revenue;
+                availability=false;
+                cout<<"Total Revenue Generated after discount: "<<revenue<<endl;
+            }
+        }
+
+   void display() {
+            cout<<"brand: "<<brand<<endl;
+            cout<<"model: "<<model<<endl;
+            cout<<"price: "<<price<<endl;
+            cout<<"status: "<<availability<<endl;
+        }
+    };
+int main()
+{
+    Car c1("Toyota", "GLI", 50000, true);
+    c1.display();
+    c1.RentalRequest();
+    c1.Revenue(7);
+    return 0;
+}
