@@ -18,13 +18,21 @@ class Manager: public Employee{
 	public:
 		float bonus;
 		Manager(string name,float salary, float bonus): Employee(name,salary) , bonus(bonus){};
-		DisplayDetails(){
+		void DisplayDetails(){
 			Employee::DisplayDetails();
 			cout<<"Bonus: "<<bonus<<endl;
 		}
 };
 int main()
-{
-	Manager m1("Mustafa",230000.0,120000);
+{   string name;
+float bonus,salary;
+    cout<<"Enter name of the manager: ";
+    cin>>name;
+     cout<<"Enter salary of the manager: ";
+    cin>>salary;
+     cout<<"Enter bonus of the manager: ";
+    cin>>bonus;
+
+	Manager m1(name,salary,bonus);
 	m1.DisplayDetails();
 }
