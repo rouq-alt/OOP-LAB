@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std;
+
+class Employee{
+	public:
+		string name;
+		float salary;
+		
+		Employee(string name,float salary):name(name),salary(salary) {}
+		void DisplayDetails()
+		{
+			cout<<"Name: " <<name<<endl;
+			cout<<"Salary in PKR: "<<salary<<endl;
+			
+		}
+};
+class Manager: public Employee{
+	public:
+		float bonus;
+		Manager(string name,float salary, float bonus): Employee(name,salary) , bonus(bonus){};
+		DisplayDetails(){
+			Employee::DisplayDetails();
+			cout<<"Bonus: "<<bonus<<endl;
+		}
+};
+int main()
+{
+	Manager m1("Mustafa",230000.0,120000);
+	m1.DisplayDetails();
+}
