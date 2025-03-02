@@ -1,0 +1,92 @@
+/*#include<iostream>
+using namespace std;
+
+class Employee{
+	public:
+		string name;
+		float salary;
+		
+		Employee(string name,float salary):name(name),salary(salary) {}
+		void DisplayDetails()
+		{
+			cout<<"Name: " <<name<<endl;
+			cout<<"Salary in PKR: "<<salary<<endl;
+			
+		}
+};
+class Manager: public Employee{
+	public:
+		float bonus;
+		Manager(string name,float salary, float bonus): Employee(name,salary) , bonus(bonus){};
+		void DisplayDetails(){
+			Employee::DisplayDetails();
+			cout<<"Bonus: "<<bonus<<endl;
+		}
+};
+int main()
+{   string name;
+float bonus,salary;
+    cout<<"Enter name of the manager: ";
+    cin>>name;
+     cout<<"Enter salary of the manager: ";
+    cin>>salary;
+     cout<<"Enter bonus of the manager: ";
+    cin>>bonus;
+
+	Manager m1(name,salary,bonus);
+	m1.DisplayDetails();
+}*/
+
+#include<iostream>
+using namespace std;
+
+class Vehicle{
+	public:
+		string brand;
+		int speed;
+		Vehicle(string brand,int speed): brand(brand),speed(speed){
+		}
+		void DisplayDetails()
+		{
+			cout<<"Brand:"<<brand<<endl;
+			cout<<"Speed:"<<speed<<endl;
+			
+		}
+};
+
+class car:public Vehicle{
+	public:
+		int seats;
+		car(string brand,int speed,int seats):Vehicle(brand,speed), seats(seats){
+		}
+		void DisplayDetails(){
+			Vehicle::DisplayDetails();
+			cout<<"Seats:"<<seats<<endl;
+			
+		}
+};
+class Electric_Car: public car{
+	public:
+		int battery_life;
+		Electric_Car(string brand,int speed,int seats,int battery_life): car(brand,speed,seats),battery_life(battery_life){
+		}
+		void DisplayDetails(){
+			car::DisplayDetails();
+			cout<<"Battery life:"<<battery_life<<endl;
+		}
+};
+int main(){
+	string brand;
+	int speed,seats,battery_life;
+	cout<<"Enter brand:";
+	cin>>brand;
+	cout<<"Enter speed:";
+	cin>>speed;
+	cout<<"Enter capacity(seats):";
+	cin>>seats;
+	cout<<"Enter Battery life:";
+	cin>>battery_life;
+	Electric_Car car1(brand,speed,seats,battery_life);
+	cout<<"----------------------------------------------------------------------------------------------"<<endl;
+	car1.DisplayDetails();
+}
