@@ -1,1 +1,46 @@
+#include<iostream>
+using namespace std;
 
+class Apartment{
+	private:
+		int id;
+		string address;
+		string* owner;
+	
+	public:
+		Apartment(int id, string address, string owner) : id(id), address(address), owner(new string(owner)){
+		}
+		
+		Apartment(const Apartment &obj)
+		{
+			id=obj.id;
+			address=obj.address;
+			owner= new string(*obj.owner);
+		}
+		
+		void changeAgent(string name)
+		{
+			*owner=name;
+		}
+		void Display(){
+			cout<<"--------------------------------------------------------------------------------------------"<<endl;
+			cout<<"Apartment ID:"<<id<<endl<<"Address:"<<address<<endl<<"Owner:"<<*owner<<endl;
+			cout<<"--------------------------------------------------------------------------------------------"<<endl;
+		}
+		~Apartment()
+		{
+			delete owner;
+		}
+		
+};
+int main()
+{
+	Apartment apt1(01,"Dha phase 6","Salim");
+	Apartment apt2(02,"PECHS","Tehrim");
+	Apartment apt3=apt1;
+	apt1.Display();
+	apt2.Display();
+	apt3.changeAgent("Haya");
+	cout<<"Apartment with new agent:"<<endl;
+	apt3.Display();
+}
