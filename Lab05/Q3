@@ -1,0 +1,73 @@
+#include <iostream>
+using namespace std;
+
+class Employee
+{
+private:
+    string name;
+    string designation;
+
+public:
+    Employee(string n,string d)
+    {
+        name=n;
+        designation=d;
+    }
+    void display()
+    {
+        cout<<name<<endl;
+        cout<<designation<<endl;
+    }
+};
+class Project
+{
+private:
+    string title;
+    string deadline;
+    Employee *Emp[5];
+    int EmpCount;
+    int MaxCapacity=5;
+
+public:
+    Project(string t, string d)
+    {
+        title=t;
+        deadline=d;
+        this->EmpCount=0;
+    }
+
+    void addEmployee(Employee *emp)
+    {
+        if (EmpCount<MaxCapacity)
+        {
+            Emp[EmpCount++]=emp;
+        }
+        else
+        {
+            cout<<"Cannot add more employees to "<<title<<"!"<<endl;
+        }
+    }
+
+    void display() const
+    {
+        cout<<"Project:"<<title<<"\nDeadline: "<<deadline<<"\nAssigned Employees:\n";
+        for (int i=0;i<MaxCapacity;i++)
+        {
+            Emp[i]->display();
+        }
+    }
+};
+int main()
+{
+    Employee e1("Fatima", "Grpwth Analyst");
+    Employee e2("Tehrim", "Charted Accountant");
+    Employee e3("Charlie", "Data Analyst");
+    Project proj1("Audit of August 2024", "2025-07-03");
+    Project proj2("AI Development", "2025-09-10");
+    proj1.addEmployee(&e3);
+    proj1.addEmployee(&e2);
+    proj2.addEmployee(&e3);
+    proj2.addEmployee(&e1);
+    proj1.display();
+    proj2.display();
+}
