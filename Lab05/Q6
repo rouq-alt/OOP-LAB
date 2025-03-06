@@ -1,0 +1,65 @@
+#include <iostream>
+using namespace std;
+
+class Level
+{
+    int levelnum;
+    string difficulty;
+
+public:
+	Level()
+	{
+	}
+    Level(string difficulty,int levelnum)
+    {
+        this->difficulty=difficulty;
+        this->levelnum=levelnum;
+    }
+    void display() const
+    {
+        cout << "Level: " <<levelnum<<"Difficulty: " << difficulty << endl;
+    }
+};
+
+class VideoGame
+{
+private:
+    string title;
+    string genre;
+    Level *lev;
+    int num;
+
+public:
+    VideoGame(string t, string g, int n):title(t), genre(g), num(n)
+    {
+        lev = new Level[num];
+        if (num>= 1)
+        lev[0] = Level("Easy", 1);
+        if (num>= 2)
+            lev[1] = Level("Medium", 2);
+        if (num>= 3)
+            lev[2] = Level("Hard", 3);
+        
+    }
+    void display() const
+    {
+        cout<<"Game: "<<title<<"\nGenre: "<<genre<<endl;
+        cout<<"Levels:\n";
+        for (int i=0;i<num;i++)
+        {
+            lev[i].display();
+        }
+        cout<<endl;
+    }
+
+    ~VideoGame()
+    {
+        delete[] lev;
+    }
+};
+
+int main()
+{
+    VideoGame g1("Squid Game", "Adventure", 3);
+    g1.display();
+}
