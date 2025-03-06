@@ -1,0 +1,71 @@
+#include <iostream>
+using namespace std;
+
+class Doctor
+{
+private:
+    string name;
+    string specialisation;
+    int experience;
+
+public:
+    Doctor(string name, string specialisation, int experience) : name(name), specialisation(specialisation), experience(experience) {}
+
+    void display() const
+    {
+        cout<<"Name:"<<name<<endl<<"Specialisation:"<<specialisation<<endl<<"Experience(in Yrs):"<< experience<<endl;
+    }
+};
+
+class Hospital
+{
+private:
+    string HospitalName;
+    Doctor **d;
+    int DoctorCount=0;
+    int capacity=8;
+
+public:
+    Hospital(string name, int capacity)
+    {
+        HospitalName=name;
+        this->capacity=capacity;
+        d=new Doctor *[capacity];
+    }
+
+    void assignDoctor(Doctor *doc)
+    {
+        if (DoctorCount<capacity)
+        {
+            d[DoctorCount]=doc;
+            DoctorCount++;
+        }
+    }
+    void displayHospital()
+    {   cout<<"------------------------------------------------------------------------------------------------------------------"<<endl;
+        cout<<"HospitalName:"<<HospitalName<<endl;
+        for (int i=0;i<DoctorCount;i++)
+        {
+            d[i]->display();
+        }
+        cout<<"-----------------------------------------------------------------------------------------------------------------"<<endl;
+    }
+      ~Hospital()
+    {
+        delete[] d;
+    }
+};
+int main()
+{
+    Doctor doc1("Dr. Ayesha", "Cardiologist", 7);
+    Doctor doc2("Dr. Zafar", "Surgeon", 10);
+    Doctor doc3("Dr. Ali", "Pediatrician", 8);
+    Hospital hospital1("Clifton Hospital", 6);
+    hospital1.assignDoctor(&doc1);
+    hospital1.assignDoctor(&doc3);
+    hospital1.displayHospital();
+    Hospital hospital2("Aga Khan Hospital", 5);
+    hospital2.assignDoctor(&doc2);
+    hospital2.assignDoctor(&doc3);
+    hospital2.displayHospital();
+}
