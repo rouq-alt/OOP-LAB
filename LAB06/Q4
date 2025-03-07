@@ -1,0 +1,160 @@
+/*#include<iostream>
+using namespace std;
+
+class Person{
+	private:
+		string name;
+		int age;
+	
+	public:
+		Person(string name,int age): name(name),age(age){
+		}
+		
+	void DisplayDetails()
+	{
+		cout<<"Name:"<<name<<endl<<"Age:"<<age<<endl;
+	}
+};
+
+class Teacher: virtual public Person{
+	protected:
+		string subject;
+		
+	public:
+		Teacher(string name,int age, string subject):Person(name,age),subject(subject){
+		}
+		
+	void DisplayDetails()
+	{ 
+	    Person::DisplayDetails();
+		cout<<"Subject:"<<subject<<endl;	
+	}
+};
+
+class Researcher: virtual public Person{
+	protected:
+		string ResearchArea;
+		
+	public:
+		Researcher(string name,int age,string ResearchArea) : Person(name,age),ResearchArea(ResearchArea)
+		{
+		}
+		
+	void DisplayDetails()
+	{
+		Person::DisplayDetails();
+		cout<<"Research Area:"<<ResearchArea<<endl;
+	}
+};
+
+class Professor: public Teacher, public Researcher{
+	private:
+		int Publications;
+		
+	public:
+		Professor(string name,int age,string subject,string ResearchArea, int Publications): Person(name,age),Teacher(name,age,subject),Researcher(name,age,ResearchArea),Publications(Publications){
+		}
+		
+	void DisplayDetails()
+	{   
+	    cout<<"-------------------------------------------------------------------"<<endl;
+		Person::DisplayDetails();
+		cout<<"Subject:"<<subject<<endl;
+		cout<<"Research Area:"<<ResearchArea<<endl;
+		cout<<"Publications:"<<Publications<<endl;
+	}
+};
+
+int main(){
+	string name,ResearchArea,subject;
+	int age,Publications;
+	
+	cout<<"Enter Professor Details:"<<endl;
+    cout<<"Name: ";
+    getline(cin,name);
+    cout<<"Age: ";
+    cin>>age;
+    cin.ignore();
+	cout<<"Subject: ";
+    getline(cin,subject);
+    cout<<"Research Area: ";
+    getline(cin,ResearchArea);
+    cout<<"Number of Publications: ";
+    cin>>Publications;
+    
+    Professor p1(name,age,subject,ResearchArea,Publications);
+    p1.DisplayDetails();
+    
+}*/
+
+#include<iostream>
+using namespace std;
+
+class Account{
+	protected:
+		int accountNumber;
+		float balance;
+		
+	Account(int accountNumber,float balance) : accountNumber(accountNumber), balance(balance){
+
+	}
+	
+	void DisplayDetails()
+	{
+		cout<<"Account Number: "<<accountNumber<<endl;
+		cout<<"Balance: "<<balance<<endl;
+		
+	}
+	
+};
+
+class SavingsAccount: public Account{
+	public:
+		float interestRate;
+		
+	SavingsAccount(int AccountNumber, float balance, float interestRate) : Account(accountNumber,balance),interestRate(interestRate){
+	}
+	
+	void DisplayDetails()
+	{
+		cout<<"--------------------------------------------------------------------------------"<<endl;
+		Account::DisplayDetails();
+		cout<<"Interest Rate: "<<interestRate<<endl;
+	}
+};
+
+class CheckingAccount : public Account{
+	public:
+		float overdraftlimit;
+		
+	CheckingAccount(int accountNumber,float balance, float overdraftlimit) : Account(accountNumber,balance),overdraftlimit(overdraftlimit){
+	}
+	
+	void DisplayDetails()
+	{
+		cout<<"-------------------------------------------------------------------------------------"<<endl;
+		Account::DisplayDetails();
+		cout<<"Over Draft Limit:"<<overdraftlimit<<endl;
+	}
+};
+
+int main()
+{   int accountNumber;
+    float interestRate,balance,overdraftlimit;
+    
+    cout<<"----------------------------Bank System-------------------------------"<<endl;
+
+	   cout<<"Enter Account Number:"<<endl;
+	   cin>>accountNumber;
+	   cout<<"Enter your balance:"<<endl;
+	   cin>>balance;
+	   cout<<"Enter Interest Rate:"<<endl;
+	   cin>>interestRate;
+	   cout<<"Enter Overdraft limit:"<<endl;
+	   cin>>overdraftlimit;
+	   SavingsAccount a1(accountNumber,balance,interestRate);
+	   a1.DisplayDetails();
+	   CheckingAccount a2(accountNumber,balance,overdraftlimit);
+	   a2.DisplayDetails();
+
+}
