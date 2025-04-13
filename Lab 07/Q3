@@ -1,0 +1,146 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Ticket {
+protected:
+    int ticketID;
+    string passengerName;
+    double price;
+    string date, destination;
+    bool isReserved;
+
+public:
+    Ticket(int id, string name, double p, string d, string dest)
+        : ticketID(id), passengerName(name), price(p), date(d), destination(dest), isReserved(false) {}
+
+    virtual void reserve() {
+        isReserved = true;
+        cout << "Ticket for " << passengerName << " reserved.\n";
+    }
+
+    virtual void cancel() {
+        isReserved = false;
+        cout << "Ticket for " << passengerName << " canceled.\n";
+    }
+
+    virtual void displayTicketInfo() const {
+        cout << "ID: " << ticketID << "\nName: " << passengerName
+             << "\nPrice: $" << price << "\nDate: " << date
+             << "\nDestination: " << destination
+             << "\nStatus: " << (isReserved ? "Reserved" : "Not Reserved") << endl;
+    }
+};
+
+class FlightTicket : public Ticket {
+    string airlineName, flightNumber, seatClass;
+
+public:
+    FlightTicket(int id, string name, double p, string d, string dest,
+                 string airline, string flightNum, string seatCls)
+        : Ticket(id, name, p, d, dest), airlineName(airline), flightNumber(flightNum), seatClass(seatCls) {}
+
+    void displayTicketInfo() const override {
+        Ticket::displayTicketInfo();
+        cout << "Airline: " << airlineName << "\nFlight #: " << flightNumber
+             << "\nSeat Class: " << seatClass << endl;
+    }
+};
+
+class TrainTicket : public Ticket {
+    string trainNumber, coachType, departureTime;
+    int assignedSeat = 0;
+    static int nextSeatNumber;
+
+public:
+    TrainTicket(int id, string name, double p, string d, string dest,
+                string trainNum, string coach, string depTime)
+        : Ticket(id, name, p, d, dest), trainNumber(trainNum), coachType(coach), departureTime(depTime) {}
+
+    void reserve() override {
+        isReserved = true;
+        assignedSeat = nextSeatNumber++;
+        cout << "Train ticket reserved for " << passengerName << ". Seat: " << assignedSeat << endl;
+    }
+
+   void displayTicketInfo() const override {
+    Ticket::displayTicketInfo();
+    cout << "Train #: " << trainNumber << "\nCoach: " << coachType
+         << "\nDeparture: " << departureTime;
+    if (assignedSeat == 0)
+        cout << "\nSeat: Not Assigned" << endl;
+    else
+        cout << "\nSeat: " << assignedSeat << endl;
+}
+
+};
+
+// Initialize static member
+int TrainTicket::nextSeatNumber = 1;
+
+class BusTicket : public Ticket {
+    string busCompany;
+    int seatNumber;
+
+public:
+    BusTicket(int id, string name, double p, string d, string dest,
+              string company, int seat)
+        : Ticket(id, name, p, d, dest), busCompany(company), seatNumber(seat) {}
+
+    void cancel() override {
+        isReserved = false;
+        cout << "Bus ticket for " << passengerName << " canceled. Full refund issued.\n";
+    }
+
+    void displayTicketInfo() const override {
+        Ticket::displayTicketInfo();
+        cout << "Bus Co: " << busCompany << "\nSeat #: " << seatNumber << endl;
+    }
+};
+
+class ConcertTicket : public Ticket {
+    string artistName, venue, seatType;
+
+public:
+    ConcertTicket(int id, string name, double p, string d, string dest,
+                  string artist, string v, string seat)
+        : Ticket(id, name, p, d, dest), artistName(artist), venue(v), seatType(seat) {}
+
+    void displayTicketInfo() const override {
+        Ticket::displayTicketInfo();
+        cout << "Artist: " << artistName << "\nVenue: " << venue << "\nSeat Type: " << seatType << endl;
+    }
+};
+
+int main() {
+    FlightTicket flight(1, "Alice", 500, "2025-05-10", "New York", "Emirates", "EK202", "Business");
+    TrainTicket train(2, "Ahmed", 50, "2025-06-15", "lahore", "TR123", "First", "08:30 AM");
+    BusTicket bus(3, "Charlie", 20, "2025-07-01", "San Francisco", "Greyhound", 12);
+    ConcertTicket concert(4, "Fatima", 150, "2025-04-20", "Karachi", "Bayaan", "Fast Khi", "VIP");
+
+    cout << "\n-------------Initial Ticket Info--------------\n";
+    flight.displayTicketInfo(); cout << endl;
+    train.displayTicketInfo(); cout << endl;
+    bus.displayTicketInfo(); cout << endl;
+    concert.displayTicketInfo(); cout << endl;
+
+    cout << "\n---------------Reserving Tickets--------------\n";
+    flight.reserve();
+    train.reserve();
+    bus.reserve();
+    concert.reserve();
+
+    cout << "\n--------------Updated Ticket Info-------------\n";
+    flight.displayTicketInfo(); cout << endl;
+    train.displayTicketInfo(); cout << endl;
+    bus.displayTicketInfo(); cout << endl;
+    concert.displayTicketInfo(); cout << endl;
+
+    cout << "\n--------------Canceling Bus Ticket------------\n";
+    bus.cancel();
+
+    cout << "\n--------------Final Ticket Info--------------\n";
+    concert.displayTicketInfo();
+
+    return 0;
+}
