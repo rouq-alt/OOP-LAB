@@ -1,0 +1,66 @@
+#include<iostream>
+using namespace std;
+
+class MenuItems{
+
+    protected:
+    string dishName;
+    double price;
+
+    public:
+    MenuItems(string dishName, double price): dishName(dishName),price(price){}
+    virtual void showDetails() = 0 ;
+    virtual void prepare() = 0 ;
+
+    virtual ~MenuItems(){}
+
+    
+};
+
+class Appetizer: public MenuItems{
+ 
+    public:
+
+    Appetizer(string dishName,double price) : MenuItems(dishName,price) {}
+
+    void showDetails()
+    {
+        cout<<"---------------------------------------------"<<endl;
+        cout<<"Appetizer"<<endl;
+        cout<<"Dish: "<<dishName<<endl;
+        cout<<"Price:"<<price<<" Rs"<<endl;
+
+    }
+    void prepare()
+    {
+        cout<<"Cutting ingredients for "<<dishName<<endl;
+    }
+};
+
+class MainCourse : public MenuItems {
+
+    public:
+    MainCourse(string dishName,double price): MenuItems(dishName,price){}
+    void showDetails()
+    {
+        cout<<"---------------------------------------------"<<endl;
+        cout<<"Main Course"<<endl;
+        cout<<"Dish: "<<dishName<<endl;
+        cout<<"Price:"<<price<<" Rs"<<endl;
+    }
+
+    void prepare()
+    {
+        cout<<"Preparing the ingredients for "<<dishName<<endl;
+    }
+};
+
+int main()
+{
+    MenuItems *i1= new Appetizer("Potato Wedges",800.0);
+    MenuItems *i2= new MainCourse("Alfredo Pasta", 2000.0);
+    i1->showDetails();
+    i1->prepare();
+    i2->showDetails();
+    i2->prepare();
+}
