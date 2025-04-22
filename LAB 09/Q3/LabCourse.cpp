@@ -3,7 +3,6 @@
 
 LabCourse::LabCourse(string code, int credits) : Course(code, credits) {}
 float LabCourse::calculateGrade() {
-    cout << " Grade Calculated:" << courseCode;
   return 89.0;
 }
 void LabCourse::displayInfo() {
