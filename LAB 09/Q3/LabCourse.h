@@ -5,7 +5,7 @@
 class LabCourse : public Course {
 public:
     LabCourse(string code, int credits);
-    floatt calculateGrade() override;
+    float calculateGrade() override;
     void displayInfo() override;
 };
 #endif
