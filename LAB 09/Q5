@@ -1,0 +1,47 @@
+#include <iostream>
+using namespace std;
+
+class Shipment {
+protected:
+    string code;
+    double weight;
+
+public:
+    Shipment(string c, double w) : code(c), weight(w) {}
+    virtual void showDetails() = 0;
+    virtual int estimateddeliveryTime() = 0;
+};
+
+class Air : public Shipment {
+public:
+    Air(string c, double w) : Shipment(c, w) {}
+    void showDetails() override {
+        cout << "Air Shipment: " << code << ", " << weight << "kg\n";
+    }
+    int estimateddeliveryTime() override {
+        return 12;
+    }
+};
+
+class Ground : public Shipment {
+public:
+    Ground(string c, double w) : Shipment(c, w) {}
+    void showDetails() override {
+        cout << "Ground Shipment: " << code << ", " << weight << "kg\n";
+    }
+    int estimateddeliveryTime() override {
+        return 9;
+    }
+};
+
+int main() {
+    Shipment* s1 = new Air("A123", 15.5);
+    Shipment* s2 = new Ground("G456", 22.0);
+    s1->show();
+    cout << "Delivery in: " << s1->deliveryTime() << " days\n";
+    s2->show();
+    cout << "Delivery in: " << s2->deliveryTime() << " days\n";
+    delete s1;
+    delete s2;
+    return 0;
+}
