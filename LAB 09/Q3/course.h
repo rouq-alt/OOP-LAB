@@ -11,7 +11,7 @@ protected:
 
 public:
     Course(string code, int credits) : courseCode(code), credits(credits) {}
-    virtual void calculateGrade() = 0;
+    virtual float calculateGrade() = 0;
     virtual void displayInfo() = 0;
     virtual ~Course() {}
 };
