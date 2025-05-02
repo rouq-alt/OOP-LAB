@@ -1,0 +1,50 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include<sstream>
+
+using namespace std;
+
+int main() {
+    ifstream file("vehicles.txt");
+    if (!file.is_open()) { 
+        cerr << "Error: Could not open the file." <<endl;
+        return 1;
+    }
+
+string line;
+    while (getline(file, line)) { 
+        if (line[0]=='/' || line[0] == '#') 
+            continue;
+            
+        istringstream istringfile(line);
+        string Type, Id, Name, Year, ExtraData, Certification;
+
+        getline(istringfile, Type, ',');
+        getline(istringfile, Id, ',');
+        getline(istringfile, Name, ',');
+        getline(istringfile, Year, ',');
+        getline(istringfile, ExtraData, ',');
+        getline(istringfile, Certification, ',');
+
+        size_t pos = ExtraData.find(':');
+        if (pos != string::npos) { 
+            string numericString = ExtraData.substr(pos + 1); 
+
+            if (Type == "AutonomousCar") {
+                float software = stof(numericString);
+                cout << "Vehicle ID: " << Id << "  SW Version: " << software << endl;
+            } 
+            else if (Type == "ElectricVehicle") {
+                int battery= stoi(numericString);
+                cout << "Vehicle ID: " << Id << "  Battery Capacity: " << battery << endl;
+            }
+        }
+        else {
+            cout << "Invalid! Colon found before substring" << endl;
+        }
+        cout << "-----------------------------" << endl;
+    }
+    file.close();
+    return 0;
+}
