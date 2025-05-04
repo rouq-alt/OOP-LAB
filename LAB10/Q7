@@ -5,9 +5,9 @@ using namespace std;
 
 int main() {
     ofstream file("sensor_log.txt");
-    file<<"Sensor 1: Smoke Sensor";
+    file<<"Sensor 1: 25.5 C";
     cout<<"After Sensor 1: " << file.tellp() << "\n";
-    file<<"Sensor 2: Heat Sensor\n";
+    file<<"Sensor 2: 98.1 %RH\n";
     cout<<"After Sensor 2: " << file.tellp() << "\n";
     file.close();
 }
