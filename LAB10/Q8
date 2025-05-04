@@ -1,0 +1,18 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int main() {
+    ofstream inputfile("config.txt");
+    inputfile << "AAAAABBBBBCCCCC";
+    inputfile.close();
+    fstream file("config.txt", ios::in | ios::out);
+    file.seekp(5);
+    file << "XXXXX";
+    file.close();
+    ifstream result("config.txt");
+    string content;
+    result >> content;
+    cout << "Updated config: " << content << "\n";
+}
