@@ -1,0 +1,13 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int main() {
+    ofstream file("sensor_log.txt");
+    file<<"Sensor 1: Smoke Sensor";
+    cout<<"After Sensor 1: " << file.tellp() << "\n";
+    file<<"Sensor 2: Heat Sensor\n";
+    cout<<"After Sensor 2: " << file.tellp() << "\n";
+    file.close();
+}
