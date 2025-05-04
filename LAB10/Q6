@@ -1,0 +1,66 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+class InventoryItem {
+private:
+    int itemID;
+    string itemName;
+
+public:
+    InventoryItem() : itemID(0), itemName("") {}
+    
+    InventoryItem(int id, const string& name) : itemID(id), itemName(name) {}
+
+    void display() const {
+        cout << "Item ID: " << itemID << ", Name: " << itemName << "\n";
+    }
+
+    void saveToFile(const string& filename) const {
+        ofstream file(filename, ios::binary);
+        if (!file) {
+            cerr << "Cannot open file for writing.\n";
+            return;
+        }
+
+        file.write((char*)&itemID, sizeof(itemID));
+        size_t nameLength = itemName.size();
+        file.write((char*)&nameLength, sizeof(nameLength));
+        file.write(itemName.c_str(), nameLength);
+
+        file.close();
+        cout << "Item saved to file.\n";
+    }
+
+    void loadFromFile(const string& filename) {
+        ifstream inFile(filename, ios::binary);
+        if (!inFile) {
+            cerr << "Cannot open file for reading.\n";
+            return;
+        }
+
+        inFile.read((char*)&itemID, sizeof(itemID));
+        size_t nameLength;
+        inFile.read((char*)&nameLength, sizeof(nameLength));
+        char* buffer = new char[nameLength + 1];
+        inFile.read(buffer, nameLength);
+        buffer[nameLength] = '\0';
+        itemName = string(buffer);
+        delete[] buffer;
+
+        inFile.close();
+        cout << "Item loaded from file.\n";
+    }
+};
+
+int main() {
+    InventoryItem item1(101, "Wrench");
+    item1.saveToFile("inventory.dat");
+    InventoryItem item2;
+    item2.loadFromFile("inventory.dat");
+    item2.display();
+
+    return 0;
+}
