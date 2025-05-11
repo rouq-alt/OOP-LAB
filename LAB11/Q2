@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+
+
+class QueueOverflowException : public exception {
+public:
+    const char* what() const noexcept override {
+        return "Queue overflow: Cannot enqueue into a full queue.";
+    }
+};
+
+class QueueUnderflowException : public exception {
+public:
+    const char* what() const noexcept override {
+        return "Queue underflow: Cannot dequeue from an empty queue.";
+    }
+};
+
+
+class Queue {
+private:
+    int* data;
+    int front, rear, count, capacity;
+
+public:
+    Queue(int size) : front(0), rear(-1), count(0), capacity(size) {
+        data = new int[capacity];
+    }
+
+    void enqueue(int value) {
+        if (count == capacity)
+            throw QueueOverflowException();
+        rear = (rear + 1) % capacity;
+        data[rear] = value;
+        count++;
+    }
+
+    int dequeue() {
+        if (count == 0)
+            throw QueueUnderflowException();
+        int value = data[front];
+        front = (front + 1) % capacity;
+        count--;
+        return value;
+    }
+
+    ~Queue() {
+        delete[] data;
+    }
+};
+
+int main() {
+    Queue q(3);
+
+    try {
+        cout << "Enqueuing 4 elements into a queue of size 3...\n";
+        q.enqueue(10);
+        q.enqueue(20);
+        q.enqueue(30);
+        q.enqueue(40); // Will throw exception
+    } catch (const exception& e) {
+        cout << "Exception: " << e.what() << endl;
+    }
+
+    Queue q2(2);
+    try {
+        cout << "\nDequeuing from an empty queue...\n";
+        q2.dequeue(); // Will throw exception
+    } catch (const exception& e) {
+        cout << "Exception: " << e.what() << endl;
+    }
+
+    return 0;
+}
